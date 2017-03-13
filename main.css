@@ -1,0 +1,751 @@
+/* Vendor Dependencies */
+@import "compass";
+@import "singularitygs";
+@import "import/vendor/normalize";
+
+/* Authored Dependencies */
+@import "import/mixins";
+@import "import/fl-scripts";
+
+/* Patterns */
+@import "import/dynamic-products";
+@import "import/forms"; // default styles for forms
+@import "import/practice-products";
+@import "import/animation";
+
+/* Sections */
+@import "import/publisher"; // default publisher styles
+@import "import/wysiwyg";
+// @import "import/template"; // please use as a reference
+// @import "import/blog"; // uncomment for blogs
+
+// apply a natural box layout model to all elements
+* {
+	@include box-sizing(border-box);
+}
+
+//	 __  __ _____  _____ _   _ ____
+//	|  \/  |_ _\ \/ /_ _| \ | / ___|
+//	| |\/| || | \  / | ||  \| \___ \
+//	| |  | || | /  \ | || |\  |___) |
+//	|_|  |_|___/_/\_\___|_| \_|____/
+//
+//	 ~ SCSS mixins and variables ~
+
+$experimental-support-for-svg: true;
+$grids: 12;
+$gutters: 30/54;
+$max-page-width: 978px;
+$mobile-first: false;
+
+// Web Safe Fonts
+$font-arial: Arial, Helvetica, sans-serif;
+$font-arial-black: "Arial Black", Gadget, sans-serif;
+$font-courier: "Courier New", Courier, Monospace;
+$font-georgia: Georgia, serif;
+$font-lucida-console: "Lucida Console", Monaco, monospace;
+$font-lucida-sans: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$font-tahoma: Tahoma, Geneva, sans-serif;
+$font-times: "Times New Roman", Times, serif;
+$font-trebuchet: "Trebuchet MS", Tahoma, Arial, sans-serif;
+$font-verdana: Verdana, Geneva, sans-serif;
+$font-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-baskerville: Baskerville, Palatino, "Palatino Linotype", Georgia, Serif;
+$font-PTSans: 'PT Sans', sans-serif;
+$font-LibreBaskerville:'Libre Baskerville', serif;
+.printElement {
+	display: none;
+}
+.offscreen {
+	text-indent: -9999em;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	display: block;
+	overflow: hidden;
+	list-style: none;
+	br {
+		display:none;
+	}
+}
+
+.clearfix {
+	&:before {
+		content: "";
+		display: table;
+	}
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+.btn-togglebox {
+	display: none;
+	text-decoration: none;
+
+	@include breakpoint(max-width 650px) {
+		display: block;
+		padding: 10px;
+		text-transform: uppercase;
+		color: #0d223d;
+	}
+}
+
+.togglebox-close {
+	display: none;
+	@include breakpoint(max-width 650px) {
+		display: block;
+	}
+}
+
+//	 ____    _    ____  _____   ____ _______   ___     _____ ____
+//	| __ )  / \  / ___|| ____| / ___|_   _\ \ / / |   | ____/ ___|
+//	|  _ \ / _ \ \___ \|  _|   \___ \ | |  \ V /| |   |  _| \___ \
+//	| |_) / ___ \ ___) | |___   ___) || |   | | | |___| |___ ___) |
+//	|____/_/   \_\____/|_____| |____/ |_|   |_| |_____|_____|____/
+//
+//						~ element selectors ~
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	@include font-size(16);
+}
+
+a {
+	color: #102e52;
+	&:visited {
+		color: #000000;
+	}
+	&:hover, &:focus {
+		color: #641c04;
+	}
+	&:active, .current {
+		color: #743301;
+		text-decoration: none;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+h1 { }
+h2 {font-family: $font-georgia; font-size: 20px; font-weight: 400; color: #102e52; }
+h3 {font-family: $font-georgia; font-size: 20px; font-weight: 400; color: #102e52; }
+h4 { }
+h5 { }
+h6 { }
+
+td img {
+
+max-width: none; // max-width breaks the design when images reside within table cells (try max-width: 100% and see)
+}
+
+//	 ____  _____ _____ _   _   _ _   _____   ____ _______   ___     _____ ____
+//	|  _ \| ____|  ___/ \ | | | | | |_   _| / ___|_   _\ \ / / |   | ____/ ___|
+//	| | | |  _| | |_ / _ \| | | | |   | |   \___ \ | |  \ V /| |   |  _| \___ \
+//	| |_| | |___|  _/ ___ \ |_| | |___| |    ___) || |   | | | |___| |___ ___) |
+//	|____/|_____|_|/_/   \_\___/|_____|_|   |____/ |_|   |_| |_____|_____|____/
+//
+//							  ~ all resolutions ~
+
+body.design { 
+	background: #ffffff;
+}
+.header-wrap{
+	background: #f1e7d4;
+}
+.header-page {
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+}
+.logo-container{
+	@include grid-span(6,1);
+	padding: 42px 0 40px 0;
+	span{
+		display: inline-block;
+		padding-left: 8px;
+		font-family: $font-PTSans;
+		font-size: 20px;
+		font-weight: 400;
+		color: #4b5028;
+		text-transform: capitalize;
+		text-decoration: none;
+	}
+}
+.cta-containert{
+	@include grid-span(5,8);
+	padding: 42px 0 40px 0;	
+}
+.cta{
+	font-family: $font-PTSans;
+	font-size: 20px;
+	font-weight: 400;
+	color: #9f4a23;
+}
+.call{
+	display: inline-block;
+	font-family: $font-LibreBaskerville;
+	font-size: 24px;
+	font-weight: 400;
+	color: #0e2f50;
+}
+.cta-phone{
+	padding-left: 98px;
+}
+.cta-text{
+	padding-left: 80px;
+}
+.mail{
+	display: inline-block;
+	padding-left: 35px;
+	background: url(../images/mail.jpg) 10px 4px no-repeat;
+}
+/* ***************** NAVIGATION MAIN STARTS HERE *********************** */
+.nav-wrap{
+	background: #641c04;
+}
+.container-nav{
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+}
+.nav-main {
+	@include fl-drop-down;
+	@include grid-span(4,1);
+	>ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		>li {
+			display: inline;
+			float: left;
+			> a {
+				display: block;
+				padding: 15px 34px 15px 0px;      
+				text-decoration: none;
+				text-transform: capitalize;
+				font-family: $font-PTSans;
+				font-size: 17px;
+				font-weight: 400;
+				color: #ffffff;
+				&:hover, &:focus, .current {
+					color: #e7b86c;
+				}
+			}
+		}
+	} 
+}
+
+/* ***************** NAVIGATION MAIN ENDS HERE *********************** */
+/* ***************** NAVIGATION PRACTICE STARTS HERE *********************** */
+.nav-practice {
+	@include fl-drop-down;
+	@include grid-span(8,5);
+	padding-left: 67px;
+	>ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		>li {
+			display: inline;
+			float: left;
+			> a {
+				display: block;
+				padding: 15px 0 15px 34px;      
+				text-decoration: none;
+				text-transform: capitalize;
+				font-family: $font-PTSans;
+				font-size: 17px;
+				font-weight: 400;
+				color: #ffffff;
+				position: relative;
+				&:before{
+					content: " ";
+					position: absolute;
+					width: 8px;
+					height: 8px;
+					background: #ffffff;
+					left: -5px;
+					top: 19px;
+					margin: 4px 0 0 30px;
+					-webkit-transform: rotate(-45deg);
+					-webkit-transform-origin: 0 100%;
+				}
+				&:hover, &:focus, .current {
+					color: #e7b86c;
+					&:before{
+						background: #e7b86c;
+					}
+				}
+			}
+		}
+	} 
+}
+/* ***************** NAVIGATION PRACTICE ENDS HERE *********************** */
+/* ***************** INTRACTIVE STARTS HERE *********************** */
+.interactiv-wrap{
+	background: #e7b96c;
+}
+.intractive{
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+	position: relative;
+}
+.randomize{
+	display: block;
+}
+.tagline{
+	position: absolute;
+	top: 60px;
+	right: 30px;
+	z-index: 99;
+	h4{
+		margin: 0;
+		font-family: $font-PTSans;
+		font-size: 34px;
+		font-weight: 400;
+		color: #ffffff;
+	}
+	p{
+		margin: 0;
+		padding-top: 21px;
+		font-family: $font-PTSans;
+		font-size: 28px;
+		font-weight: 400;
+		color: #ffffff;
+		line-height: 0.9;
+	}
+	span{
+		font-style: italic;
+	}
+}
+/* ***************** INTRACTIVE ENDS HERE *********************** */
+/* ***************** BANNERSECTION  STARTS HERE *********************** */
+.banner-wrap{
+	background: #e7b96c;
+}
+.banner{
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+	padding: 73px 0 77px 0;
+	background: url(../images/bg-banner.jpg) no-repeat;
+}
+.home-tagline{
+	padding: 0 32px 0 547px;
+	h4{
+		margin: 0;
+		font-family: $font-PTSans;
+		font-size: 34px;
+		font-weight: 400;
+		color: #ffffff;
+	}
+	p{
+		margin: 0;
+		padding-top: 21px;
+		font-family: $font-PTSans;
+		font-size: 28px;
+		font-weight: 400;
+		color: #ffffff;
+		line-height: 0.9;
+	}
+	span{
+		font-style: italic;
+	}
+	a.contact{
+		padding: 13px 37px 13px 19px;
+		background: #bf5701;
+		background: linear-gradient(#bf5701, #7b3701);
+		display: inline-block;
+		margin-top: 25px;
+		border-radius: 21px;
+		border: 1px solid #c77606;
+		font-family: "Libre Baskerville",serif;
+		font-size: 16px;
+		font-weight: 400;
+		color: #ffffff;
+		text-decoration: none;
+		position: relative;
+		&:before{
+			content: " ";
+			position: absolute;
+			width: 0;
+			top: 18px;
+			right: 15px;
+			height: 0;
+			border-top: 5px solid transparent;
+			border-left: 10px solid #ffffff;
+			border-bottom: 5px solid transparent; 
+		}
+		&:hover, &:focus, &:active {
+			background: linear-gradient(#7b3701,#bf5701);
+		}
+	}	
+}
+/* ***************** BANNERSECTION  ENDS HERE *********************** */
+.container-wrap{
+	background: #f8f3e9;
+}
+.container-page {
+	margin: 0 auto;
+	max-width: 978px;
+}
+.container-columns {
+	@include clearfix();
+}
+
+.container-column-main {
+	float: right;
+	width: 100%;
+}
+.column-main {
+	margin-left: (54px * 4) + (30px * 3);
+	padding-left: 65px;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+.column-side {
+	float: left;
+	width: (54px * 4) + (30px * 3);
+	margin-right: -100%;
+	margin-top: 43px;
+	margin-bottom: 30px;
+}
+.page-title {
+	font-family: $font-LibreBaskerville;
+	font-size: 24px;
+	font-weight: 400;
+	color: #641c04;
+	text-transform: capitalize;
+}
+.content {
+	@include clearfix(); // Added to account for styles used on Practice Centers/Pages
+	font-family: $font-PTSans;
+	font-size: 16px;
+	font-weight: 400;
+	color: #0e2f50;
+	line-height: 1.6;
+}
+.callOut{
+	padding: 17px 11px 20px 23px;
+	font-family:  $font-LibreBaskerville;
+	font-size: 21px;
+	font-weight: 400;
+	font-style: italic;
+	color: #000000;
+	line-height: 1.4;
+	border-top: 1PX solid #ce8107;
+	border-bottom: 1PX solid #ce8107;
+}
+.nav-silo{
+	margin-bottom: 40px;
+	padding: 25px 0 30px 30px;
+	background: #ba701e;
+	ul { 
+		margin: 0; 
+		padding-left: 5px;
+		list-style-type: none;
+		li {		 
+			a { 
+				display: block;
+				margin-top: 0;
+				font-family: $font-PTSans;
+				font-size: 18px;
+				font-weight: 400;
+				color: #ffffff;
+				text-decoration: none;
+				text-transform: capitalize;
+				position: relative;
+				&:before{
+					content: " ";
+					position: absolute;
+					width: 5px;
+					height: 5px;
+					background: #ffffff;
+					left: -38px;
+					top: 6px;
+					margin: 4px 0 0 30px;
+					-webkit-transform: rotate(-45deg);
+					-webkit-transform-origin: 0 100%;
+				}
+			}
+		}
+	}
+	ul li ul { 
+		list-style:none;
+		width: 185%; 
+		padding-left: 20px;
+		margin:0;
+		li{
+			a { 
+				display: block;
+				margin-top: 0;
+				font-family: $font-PTSans;
+				font-size: 18px;
+				font-weight: 400;
+				color: #ffffff;
+				text-decoration: none;
+				text-transform: capitalize;
+				position: relative;
+				&:before{
+					content: " ";
+					position: absolute;
+					width: 5px;
+					height: 5px;
+					background: #ffffff;
+					left: -38px;
+					top: 6px;
+					margin: 4px 0 0 30px;
+					-webkit-transform: rotate(-45deg);
+					-webkit-transform-origin: 0 100%;
+				}
+			}
+		}
+	}					
+}
+.title-nav-silo{
+	margin: 0 ;
+	font-family: $font-PTSans;
+	font-size: 24px;
+	font-weight: 400;
+	color: #ffffff;
+	text-transform: capitalize;
+	position: relative;
+	&:before{
+		content: " ";
+		position: absolute;
+		width: 8px;
+		height: 8px;
+		background: #ffffff;
+		left: -38px;
+		top: 10px;
+		margin: 4px 0 0 30px;
+		-webkit-transform: rotate(-45deg);
+		-webkit-transform-origin: 0 100%;
+	}
+}
+.contact-info {
+	padding: 25px 0 35px 35px;
+	margin-top: 30px;
+	background: #eee7d9;
+	span{
+	font-family: $font-PTSans;;
+	font-size: 18px;
+	font-weight: 400;
+	color: #000000;
+	text-transform: uppercase;
+	}
+	.adress{
+		font-family: $font-PTSans;;
+		font-size: 16px;
+		font-weight: 400;
+		color: #000000;
+		strong{
+		text-transform: uppercase;
+		font-weight: 400;
+		}
+	}
+}
+.title-contact {
+	margin-top: 0;
+	font-family: $font-LibreBaskerville;
+	font-size: 20px;
+	font-weight: 400;
+	color: #641c04;
+	text-transform: capitalize;
+}
+.cta-footer-wrap{
+	background: #641c04;
+	border-top: 10px solid #ffffff;
+}
+.cta-footer{
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+	h4{
+		font-family: $font-LibreBaskerville;
+		font-size: 20px;
+		font-weight: 400;
+		color: #ffffff;
+		text-align: center;
+	}
+	span{
+		display: inline-block;
+		padding-left: 40px;
+		position: relative;
+		&:before{
+			content: " ";
+			position: absolute;
+			width: 8px;
+			left: 15px;
+			top: 9px;
+			height: 8px;
+			background: #ffffff;
+			border-radius: 50px;
+		}
+	}
+	strong{
+		font-size: 20px;
+		font-weight: 400;
+	}
+	a.email{
+		font-family: $font-LibreBaskerville;
+		font-size: 20px;
+		font-weight: 400;
+		color: #ffffff;
+	}
+}
+.footer-wrap{
+	background: #865302;
+}
+.footer-page {
+	@include clearfix;
+	max-width: 978px;
+	margin: 0 auto ;
+	padding: 75px 0 44px 0;
+	text-align: center;
+	background: url(../images/bg-footer.jpg) no-repeat;
+}
+.geography {
+	font-family: $font-PTSans;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ffffff;
+	line-height: 1.5;
+}
+
+.fine-print {
+	font-family: $font-PTSans;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ffffff;
+	line-height: 1.5;
+	a {
+		color: #ffffff;
+		&:hover, &:focus, &:active {
+			color: #641c04;
+		}
+	}
+	p {
+		
+	}
+}
+.copyright {
+	padding: 0 0 .2em;
+}
+.branding {}
+.short-form {
+	padding: 23px 17px 30px 11px;
+	background: #e7b96c;
+	p{
+	margin-top: 0px;
+	margin-bottom: 15px;
+	text-align: center;
+    font-family: $font-PTSans;
+	font-size: 15px;
+	font-weight: 400;
+	color: #1b1d1d;
+	text-transform: capitalize;
+	line-height: 1;
+	}
+	
+}
+.title-short-form {
+	margin-top: 0px;
+	margin-bottom: 15px;
+	text-align: center;
+    font-family: $font-PTSans;
+	font-size: 24px;
+	font-weight: 400;
+	color: #1b1d1d;
+	text-transform: capitalize;
+	line-height: 1.4;
+}
+#containerIntakeFormShort, #containerIntakeFormShortAutofill {
+    color: #999999;
+    font-family: $font-verdana;
+    font-size: 10px;
+}
+#containerIntakeFormShort, #containerIntakeFormShort *, #containerIntakeFormShortAutofill, #containerIntakeFormShortAutofill *{   
+    margin:0;
+    padding: 0 7px;
+}
+#containerIntakeFormShort p, #containerIntakeFormShortAutofill p{
+    padding: 0 0 6px 16px;
+    text-align: left;
+    font-family:$font-PTSans;
+	font-size: 13px; 
+	color: #333333;        
+}
+#intakeFormShort fieldset input, #intakeFormShort fieldset textarea, #intakeFormShortAutofill fieldset input, #intakeFormShortAutofill fieldset textarea{                                        
+   display: block;
+	width: 100%;
+	font-size: 15px;
+	color: #8a8a8a;
+	font-family: $font-arial;
+	margin: 0 0 6px 0;
+	background: #f4f4f4;
+	padding: 9px 17px;
+	color: #333;               
+}
+#intakeFormShort fieldset div.formHighlight *, #intakeFormShortAutofill fieldset div.formHighlight *{
+    border:1px solid #bfbfbf;
+    color: #8a8a8a;
+}
+#intakeFormShort fieldset div.formHighlight *:hover, #intakeFormShort fieldset div.formHighlight *:focus, #intakeFormShortAutofill fieldset div.formHighlight *:hover, #intakeFormShortAutofill fieldset div.formHighlight *:focus{
+    background:#f4f4f4;     
+}
+#intakeFormShort fieldset textarea, #intakeFormShortAutofill fieldset textarea{
+    height:80px;
+}
+#intakeFormShortSubmit, #intakeFormShortAutofillSubmit{
+    margin: 0;
+
+} 
+#containerIntakeFormShort a, #containerIntakeFormShortAutofill a{     
+    font-family: $font-arial;
+	font-size: 13px;    
+    color:#ffffff; 
+    text-decoration: underline;  
+    &:hover, &:focus, &:active {
+        text-decoration: none;                                                 
+    }
+}
+#intakeFormShortDisclaimer div{                              
+    width: 100%;     
+    border:1px solid #272626;            
+    background:#f4f4f4;                    
+}
+#intakeFormShortDisclaimer p{                                 
+    color:#444444;                                    
+}
+.intakeFormShortDisclaimerLink{
+	padding: 0;
+}
+#intakeFormShortDisclaimerCheck{
+	strong{
+		font-size: 13px;
+	}
+}
+#intakeFormShortDisclaimer a{
+    color:#385984;
+    text-decoration: underline;
+    &:hover, &:focus, &:active {
+    	color: #bc8a2b; 
+    	text-decoration: none;                                
+    }              
+}
+
+
+
+
+
+
+
+
